@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Data Validation
+Data validation is the process of ensuring that user input is clean, correct, and useful.
+
+Typical validation tasks are:
+
+has the user filled in all required fields?
+has the user entered a valid date?
+has the user entered text in a numeric field?
+Most often, the purpose of data validation is to ensure correct user input.
+
+Validation can be defined by many different methods, and deployed in many different ways.
+
+Server side validation is performed by a web server, after input has been sent to the server.
+
+Client side validation is performed by a web browser, before input is sent to a web server. -->
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>JavaScript Form Validation</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body {
+                padding: 10px 50px;
+            }
+
+            .container {
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+                width: 400px;
+                padding: 30px 40px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .formdesign {
+                font-size: 20px;
+
+            }
+
+            .formdesign input {
+                width: 50%;
+                padding: 12px 20px;
+                border: 1px solid blue;
+                margin: 14px;
+                border-radius: 4px;
+                font-size: 15px;
+            }
+
+            .formerror {
+                color: red;
+            }
+
+            .but {
+                border-radius: 9px;
+                width: 100px;
+                height: 50px;
+                font-size: 25px;
+                margin: 22px 20px;
+                background-color: blue;
+            }
+            .back{
+            display:flex;
+        }
+        .back1{
+            width:200px;
+        }
+        .back2{
+            width:200px;
+        }
+   
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Registration Form</h1>
+            <h3>Fillout all Mandatory Details</h3>
+            <form aciton="/myaction.php" name="myForm" onsubmit="return validateForm()" method="post">
+                <div class="formdesign" id="name">
+                    <label for="Name">Name</label><br>
+                    <input type="text" name="fname" autocomplete="off" required><br>
+                    <b><small class="formerror"> </small></b>
+                </div>
+
+                <div class="formdesign" id="email">
+                    <label for="Email">Email</label><br>
+                    <input type="email" name="femail" autocomplete="off" required><br>
+                    <b><small class="formerror"> </small></b>
+                </div>
+
+                <div class="formdesign" id="phone">
+                    <label for="phone">Phone</label><br>
+                    <input type="phone" name="fphone" autocomplete="off" required><br>
+                    <b><small class="formerror"></small></b>
+                </div>
+
+                <div class="formdesign" id="pass">
+                    <label for="fpass">Password</label><br>
+                    <input type="password" id="psw" name="fpass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="*Password should be atleast 6 characters long! Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                        required>
+                    <b><span class="formerror" </span></b>
+                </div>
+
+                <div class="formdesign" id="cpass">
+                    <label for="fcpass">Confirm Password</label><br>
+                    <input type="password" name="fcpass" autocomplete="off" required><br>
+                    <b><small class="formerror"></small></b>
+                </div>
+
+                <input class="but" onclick="myForm()" type="submit" value="Submit">
+              <div>
+              </div>
+              <div class="back">
+                <div class="back1">
+                    <a href="LoginForm.html"> Go To Login Form</a>
+                </div>
+               <div class="back2">
+                <a href="index.html"> Go Back</a>
+               </div>
+                </div>
+            
+            </form>
+        </div>
+        <script>
+            function clearErrors() {
+
+                errors = document.getElementsByClassName('formerror');
+                for (let item of errors) {
+                    item.innerHTML = "";
+                }
+
+
+            }
+            function seterror(id, error) {
+                element = document.getElementById(id);
+                element.getElementsByClassName('formerror')[0].innerHTML = error;
+
+            }
+            function validateForm() {
+                var returnval = true;
+                clearErrors();
+                var name = document.forms['myForm']["fname"].value;
+                if (name.length < 5) {
+                    seterror("name", "*Length of name is too short");
+                    returnval = false;
+                }
+
+                if (name.length == 0) {
+                    seterror("name", "*Length of name cannot be zero!");
+                    returnval = false;
+                }
+
+                var email = document.forms['myForm']["femail"].value;
+                if (email.length > 20) {
+                    seterror("email", "*Email length is too long");
+                    returnval = false;
+                }
+
+                var phone = document.forms['myForm']["fphone"].value;
+                if (phone.length != 10 && phone != "[7-9][0-9]{9}") {
+                    seterror("phone", "*Phone number should be of 10 digits!");
+                    returnval = false;
+                }
+
+                var password = document.forms['myForm']["fpass"].value;
+                if (password.length < 8 && password != "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}") {
+                    seterror("pass", "*Password should be atleast 6 characters long! Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters");
+                    returnval = false;
+                }
+                var cpassword = document.forms['myForm']["fcpass"].value;
+                if (cpassword != password) {
+                    seterror("cpass", "*Password and Confirm password should match!");
+                    returnval = false;
+                }
+                return returnval;
+            }
+            function myForm()
+            {
+                if(validateForm==true)
+                {
+                    alert("Suuccfully")
+                }
+            }
+        </script>
+    </body>
+
+    </html>
+
+</body>
+
+</html>

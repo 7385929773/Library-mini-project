@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+       #fn {
+            height:20px;
+            width:400px;
+            background-color: aliceblue;
+
+       }
+       #msg{
+           margin: auto;
+           padding: 5px;
+            height:100px;
+            width:400px;
+            background-color: aliceblue;
+
+       }
+       #em{
+            height:20px;
+            width:400px;
+            background-color: aliceblue;
+
+       }
+      
+      
+       button{
+       background-color:blueviolet;
+       justify-content: center;
+       align-items: center;
+
+   }
+   .container{
+       border-radius: 20px;
+       margin:auto;
+       padding: 10px;
+       height: 550px;
+       width: 600px;
+       background-color: burlywood;
+       justify-content: center;
+       text-align: left;
+   }
+   .back{
+            display:flex;
+        }
+        .back1{
+            width:200px;
+        }
+        .back2{
+            width:200px;
+        }
+        
+   </style>
+</head>
+<body>
+    <div class="container">
+        <form action="#">
+        <h1>Student Feedback Form</h1>        
+    Enter Name:<input id="fn" type="text" placeholder="Enter Full Name "><br><br><br><br>
+    Enter mail:<input id="em" type="text" placeholder="Enter mail "><br><br><br><br>
+    Enter Mo no:<input id="mb" type="text" placeholder="Enter Mobile Number "><br><br><br><br>
+    Enter Message:<input id="msg" type="textarea" placeholder="Enter Feedback Message "><br><br><br><br>
+    <button onclick="CreateLgn()">Submit</button>
+</form><br><br>
+<div class="back">
+    <div class="back1">
+        <a href="index.html"> Go To Home Page</a>
+    </div>
+   <div class="back2">
+    <a href="Library.html"> Go Back</a>
+   </div>
+    </div>
+
+
+</div>
+<script>
+    function CreateLgn(){
+        alert("Submit Your Feedback")
+    }
+</script> 
+</body>
+</html>

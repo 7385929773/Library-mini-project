@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Welcome tO Library</title>
+    <style>
+        nav {
+            background-color: gray;
+            color: "white";
+            height: 50px;
+        }
+
+        #message {
+            background-color: crimson;
+        }
+
+        #libraryForm {
+            padding: 50px;
+            justify-content: center;
+        }
+
+        .back {
+            display: flex;
+        }
+
+        .back1 {
+            width: 200px;
+        }
+
+        .back2 {
+            width: 200px;
+        }
+
+        table {
+            width: 600px;
+        }
+
+        tbody {
+            padding-left: 50px;
+            width: 600px;
+        }
+
+        #bookName {
+            height: 30px;
+            width: 600px;
+        }
+
+        #author {
+            height: 30px;
+            width: 600px;
+        }
+
+        button {
+            background-color: darkgreen;
+            height: 30px;
+            width: 200px;
+        }
+        </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <h1>Welcome to Library</h1>
+
+    </nav>
+    <div id="main">
+        <div id="message"></div>
+        <div class="cont my-3">
+            <h1>College Library</h1>
+            <hr>
+            <form id="libraryForm">
+                <div class="form-group row">
+                    <label for="bookName" >Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="bookName" placeholder="Enter Book Name"><br><br><br>
+                    </div>
+                </div>
+                <div>
+                    <label for="Author" >Author</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="author" placeholder="Enter Author Name"><br><br><br>
+                    </div>
+                </div>
+                <div class="container">
+                    <div>
+                        <legend >Type</legend>
+                    </div>
+                    <div>
+                        <input type="radio" id="programming" name="type" value=" Computer Programming">Computer
+                        Programming<br><br>
+                    </div>
+                    <div>
+                        <input type="radio" id="fiction" name="type" value="Fiction" checked>Fiction<br><br>
+                    </div>
+                    <div>
+                        <input type="radio" id="cooking" name="type" value="Cooking">Cooking
+                    </div>
+                </div>
+
+                <br><br>
+                <div >
+                    <div>
+                        <button type="submit" class="btn">Add Book</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="table">
+            <h1>Your books</h1>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Type</th>
+                    </tr>
+                </thead>
+                <tbody id='tableBody'></tbody>
+            </table>
+            <div class="back">
+                <div class="back1">
+                    <a href="Feedback.html"> Go To Feedback Form</a>
+                </div>
+                <div class="back2">
+                    <a href="LoginForm.html">Go Back</a>
+                </div>
+            </div>
+
+</body>
+<script>
+
+    function Book(name, author, type) {
+        this.name = name;
+        this.author = author;
+        this.type = type;
+    }
+
+    function Display() {
+
+    }
+
+    Display.prototype.add = function (book) {
+        tableBody = document.getElementById('tableBody');
+        let uiString = `<tr>
+                        <td>${book.name}</td>
+                        <td>${book.author}</td>
+                        <td>${book.type}</td>
+                    </tr>`;
+        tableBody.innerHTML += uiString;
+    }
+
+    Display.prototype.clear = function () {
+        let libraryForm = document.getElementById('libraryForm');
+        libraryForm.reset();
+    }
+
+    Display.prototype.validate = function (book) {
+        if (book.name.length < 2 || book.author.length < 2) {
+            return false
+        }
+        else {
+            return true;
+        }
+    }
+
+    let libraryForm = document.getElementById('libraryForm');
+    libraryForm.addEventListener('submit', libraryFormSubmit);
+
+    function libraryFormSubmit(e) {
+        console.log('YOu have submitted library form');
+        let name = document.getElementById('bookName').value;
+        let author = document.getElementById('author').value;
+        let type;
+        let fiction = document.getElementById('fiction');
+        let programming = document.getElementById('programming');
+        let cooking = document.getElementById('cooking');
+
+        if (fiction.checked) {
+            type = fiction.value;
+        }
+        else if (programming.checked) {
+            type = programming.value;
+        }
+        else if (cooking.checked) {
+            type = cooking.value;
+        }
+
+        let book = new Book(name, author, type);
+        console.log(book);
+
+        let display = new Display();
+
+        if (display.validate(book)) {
+
+            display.add(book);
+            display.clear();
+            let message = document.getElementById('message');
+            message.innerHTML = "Success, Your book has been successfully added";
+            setTimeout(function () {
+                message.innerHTML = ''
+            }, 2000);
+
+        }
+        else {
+            message.innerHTML = "Danger, Sorry you cannot add this book";
+            setTimeout(function () {
+                message.innerHTML = ''
+            }, 2000);
+
+        }
+
+        e.preventDefault();
+    }
+
+</script>
+
+</html>
